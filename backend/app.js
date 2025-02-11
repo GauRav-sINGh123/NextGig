@@ -20,3 +20,5 @@ app.use(express.static('public'));
 app.use(cookieParser());
 
 // routes 
+
+export { app}
