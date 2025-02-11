@@ -11,7 +11,7 @@ const app=express();
 // rate limiter - to limit the number of requests
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 50, // ⏳ Limit each IP to 50 requests per `windowMs`
+    max: 100, // ⏳ Limit each IP to 100 requests per `windowMs`
     message: "Too many requests, please try again later.",
     headers: true, // 📊 Send rate limit info in headers
 });
