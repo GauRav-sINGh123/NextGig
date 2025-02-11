@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -6,6 +7,15 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 const app=express();
+
+// rate limiter - to limit the number of requests
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 50, // ⏳ Limit each IP to 50 requests per `windowMs`
+    message: "Too many requests, please try again later.",
+    headers: true, // 📊 Send rate limit info in headers
+});
+app.use(limiter);
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
