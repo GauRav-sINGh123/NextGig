@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bycrpt from "bcryptjs";
 
 const profileSchema = new Schema({
   bio: { 
@@ -61,6 +62,18 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
+userSchema.pre("save",async function(next){
+  if(!this.isModified("password")) return next();
+  
+  this.password=await bycrpt.hash(this.password,10);
+  next();
+})
+
+userSchema.methods.isPasswordCorrect = async function(password){
+  return await bycrpt.compare(password, this.password)
+}
 
 const User = model("User", userSchema);
 
