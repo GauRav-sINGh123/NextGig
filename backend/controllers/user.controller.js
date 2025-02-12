@@ -28,7 +28,20 @@ export const signup=asyncHandler(async(req,res)=>{
 
 
 export const login=asyncHandler(async(req,res)=>{
-    console.log("login")
+  const {email,password}=req.body;
+
+  if([email,password].includes('')) return res.status(400).json({message:"All fields are required"})
+
+  const user=await User.findOne({email})
+
+  if(!user) return res.status(404).json({message:"User not found"})
+
+  const checkPassword=await user.isPasswordCorrect(password)
+
+  if(!checkPassword) return res.status(400).json({message:"Invalid credentials"})
+
+  res.status(200).json({message:"Login successful"})
+
 })
 
 export const logout=asyncHandler(async(req,res)=>{
