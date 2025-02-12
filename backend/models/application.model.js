@@ -13,7 +13,7 @@ const applicationSchema = new Schema({
     },
     status:{
         type:String,
-        enum:['pending', 'accepted', 'rejected'],
+        enum:['pending', 'selected', 'rejected'],
         default:'pending'
     }
 },{timestamps:true});
