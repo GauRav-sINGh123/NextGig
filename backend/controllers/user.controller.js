@@ -87,3 +87,8 @@ res.status(200).json({
 export const currentUser=asyncHandler(async(req,res)=>{
     console.log("current user")
 })
+
+
+const updateUser=asyncHandler(async(req,res)=>{
+    console.log("update user")
+})
