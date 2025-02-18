@@ -92,5 +92,28 @@ export const currentUser=asyncHandler(async(req,res)=>{
 
 
 export const updateUser=asyncHandler(async(req,res)=>{
-    console.log("update user")
+   const {fullName,phoneNumber,bio,currentAddress,skills,currentCompany,education}=req.body;
+   
+   let skillsArray;
+   if(skills){
+       skillsArray = skills.split(",");
+   }
+   const userId = req.id;  
+   let user = await User.findById(userId);
+
+   if (!user) {
+     return res.status(404).json({ message: "User not found" });
+   }
+ 
+   user.fullName = fullName;
+   user.phoneNumber = phoneNumber;
+   user.profile.bio = bio;
+   user.profile.currentAddress = currentAddress;
+   user.profile.skills = skillsArray;
+   user.profile.currentCompany = currentCompany;
+   user.profile.education = education;
+ 
+   await user.save();
+
+   res.status(200).json({message:"User updated successfully"})
 })
