@@ -31,7 +31,9 @@ app.use(cookieParser());
 
 // routes 
 import UserRoutes from './routes/user.route.js';
+import CompanyRoute from './routes/company.route.js';
 
 app.use('/api/auth',UserRoutes);
+app.use('/api/company',CompanyRoute);
 
 export { app}
