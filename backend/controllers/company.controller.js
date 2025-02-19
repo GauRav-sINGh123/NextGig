@@ -40,7 +40,16 @@ export const getCompanyById=asyncHandler(async(req,res)=>{
 });
 
 export const updateCompany=asyncHandler(async(req,res)=>{
-    
+    const companyId=req.params.id;
+    const {name,description,website,location,logo}=req.body;
+
+    let updateData={name,description,website,location,logo};
+    const updateCompany=await Company.findByIdAndUpdate(companyId,updateData,{new:true});
+
+    if(!updateCompany) return res.status(400).json({message:"Unable To Update Company"})
+
+    res.status(200).json({message:"Company Updated Successfully"})    
+
 });
 
 export const deleteCompany=asyncHandler(async(req,res)=>{
