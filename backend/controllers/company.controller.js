@@ -52,6 +52,13 @@ export const updateCompany=asyncHandler(async(req,res)=>{
 
 });
 
-export const deleteCompany=asyncHandler(async(req,res)=>{
-    
+export const deleteCompany = asyncHandler(async (req, res) => {
+    const companyId = req.params.id;
+    const deletedCompany = await Company.findByIdAndDelete(companyId);
+
+    if (!deletedCompany) {
+        return res.status(404).json({ message: "Company not found" });
+    }
+
+    res.status(200).json({ message: "Company deleted successfully" });
 });
