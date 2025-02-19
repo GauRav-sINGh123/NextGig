@@ -8,8 +8,8 @@ export const createCompany=asyncHandler(async(req,res)=>{
         return res.status(400).json({ message: "All fields are required" });
     }
        
-     const company=await Company.findOne({name})   
-     if(company) return res.status(400).json({message:"Company already exists"})
+     const company=await Company.findOne({name});   
+     if(company) return res.status(400).json({message:"Company already exists"});
      
      const newCompany=await Company.create(
         {
@@ -21,25 +21,28 @@ export const createCompany=asyncHandler(async(req,res)=>{
             logo
         })
 
-     if(!newCompany) return res.status(404).json({message:"Company not created"})
+     if(!newCompany) return res.status(404).json({message:"Company not created"});
 
-     res.status(201).json({message:"Company created successfully",newCompany})
-})
+     res.status(201).json({message:"Company created successfully",newCompany});
+});
 
 export const getAllCompanies=asyncHandler(async(req,res)=>{
-    const companies=await Company.find({userId:req.id})
-    if(!companies) return res.status(404).json({message:"No Company found"})
-    res.status(200).json({companies})
-})
+    const companies=await Company.find({userId:req.id});
+    if(!companies) return res.status(404).json({message:"No Company found"});
+    res.status(200).json({companies});
+});
 
 export const getCompanyById=asyncHandler(async(req,res)=>{
-    
-})
+    const companyId=req.params.id;
+    const company=await Company.findById(companyId)
+    if(!company) return res.status(404).json({message:"Company not found"})
+    res.status(200).json({company})
+});
 
 export const updateCompany=asyncHandler(async(req,res)=>{
     
-})
+});
 
 export const deleteCompany=asyncHandler(async(req,res)=>{
     
-})
+});
