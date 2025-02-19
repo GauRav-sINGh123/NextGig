@@ -26,11 +26,13 @@ export const createCompany=asyncHandler(async(req,res)=>{
      res.status(201).json({message:"Company created successfully",newCompany})
 })
 
-export const getCompanies=asyncHandler(async(req,res)=>{
-    
+export const getAllCompanies=asyncHandler(async(req,res)=>{
+    const companies=await Company.find({userId:req.id})
+    if(!companies) return res.status(404).json({message:"No Company found"})
+    res.status(200).json({companies})
 })
 
-export const getCompany=asyncHandler(async(req,res)=>{
+export const getCompanyById=asyncHandler(async(req,res)=>{
     
 })
 
