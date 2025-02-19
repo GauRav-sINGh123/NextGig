@@ -3,7 +3,10 @@ import Company from '../models/company.model.js';
 
 export const createCompany=asyncHandler(async(req,res)=>{
     const {name,description,website,location,logo}=req.body;
-    if([name,location].includes('')) return res.status(400).json({message:"All fields are required"})
+    
+    if (!name || !location) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
        
      const company=await Company.findOne({name})   
      if(company) return res.status(400).json({message:"Company already exists"})
