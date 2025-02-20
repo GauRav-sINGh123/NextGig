@@ -35,12 +35,12 @@ export const getAllJobs=asyncHandler(async(req,res)=>{
 })
 
 
-// export const deleteJob=asyncHandler(async(req,res)=>{
-//     const jobId=req.params.id
-//     const deletedJob=await Job.findByIdAndDelete(jobId)
-//     if(!deletedJob){
-//         return res.status(400).json({message:"Unable To Delete Job"})
-//     }
+export const deleteJob=asyncHandler(async(req,res)=>{
+    const jobId=req.params.id
+    const deletedJob=await Job.findByIdAndDelete(jobId)
+    if(!deletedJob){
+        return res.status(400).json({message:"Unable To Delete Job"})
+    }
 
-//     res.status(200).json({message:"Job Deleted Sucessfully"})
-// })
+    res.status(200).json({message:"Job Deleted Sucessfully"})
+})
