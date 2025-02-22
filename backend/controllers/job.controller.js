@@ -55,3 +55,15 @@ export const getJobById=asyncHandler(async(req,res)=>{
   }
   res.status(200).json({job})
 })
+
+export const getAllJobByAdmin=asyncHandler(async(req,res)=>{
+  const adminId=req.id;
+
+  const jobs = await Job.find({ created_by: adminId }).populate({
+    path:'company',createdAt:-1
+  });
+  
+  if(!jobs) return res.status(404).json({message:"Jobs Not Found"});
+
+  res.status(200).json({jobs})
+})
