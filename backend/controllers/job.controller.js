@@ -5,7 +5,7 @@ export const createJob = asyncHandler(async (req, res) => {
   const {title,description,requirements,salary,experience,location,jobType,companyId} = req.body;
   const userId = req.id;
 
-  if (!title ||!description ||!requirements ||!salary ||!experience ||!location ||!jobType ||!companyId) {
+  if (!title ||!description ||!salary ||!experience ||!location ||!jobType ||!companyId) {
     return res.status(400).json({
       message: "All Fields Are Required",
     });
@@ -20,14 +20,14 @@ export const createJob = asyncHandler(async (req, res) => {
       location,
       jobType,
       company:companyId,
-      created_by:userId,
+      createdBy:userId,
     });
   
     if(!createdJob){
         return res.status(400).json({message:"Unable To Create Job"})
     }
 
-    res.status(201).json(createJob)
+    res.status(201).json(createdJob)
 });
 
 export const getAllJobs = asyncHandler(async (req, res) => {
@@ -78,7 +78,7 @@ export const getJobById=asyncHandler(async(req,res)=>{
 export const getAllJobByAdmin=asyncHandler(async(req,res)=>{
   const adminId=req.id;
 
-  const jobs = await Job.find({ created_by: adminId })
+  const jobs = await Job.find({ createdBy: adminId })
   .populate('company')
   .sort({ createdAt: -1 });
   
