@@ -44,3 +44,14 @@ export const deleteJob=asyncHandler(async(req,res)=>{
 
     res.status(200).json({message:"Job Deleted Sucessfully"})
 })
+
+
+export const getJobById=asyncHandler(async(req,res)=>{
+  const jobId=req.params.id;
+ 
+  const job=await Job.findById(jobId);
+  if(!job){
+    return res.status(404).json({message:"Job Not Found"})
+  }
+  res.status(200).json({job})
+})
