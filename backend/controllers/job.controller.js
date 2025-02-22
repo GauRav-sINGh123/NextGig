@@ -30,9 +30,28 @@ export const createJob = asyncHandler(async (req, res) => {
     res.status(201).json(createJob)
 });
 
-export const getAllJobs=asyncHandler(async(req,res)=>{
+export const getAllJobs = asyncHandler(async (req, res) => {
+  const keyword = req.query.keyword?.trim();  
 
-})
+  const query = keyword
+      ? {
+            $or: [
+                { title: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } },
+            ],
+        }
+      : {};  
+
+  const jobs = await Job.find(query)
+      .populate("company")  
+      .sort({ createdAt: -1 });
+
+  if (!jobs.length) {
+      return res.status(404).json({ message: "No jobs found" });
+  }
+
+  res.status(200).json({ jobs });
+});
 
 
 export const deleteJob=asyncHandler(async(req,res)=>{
