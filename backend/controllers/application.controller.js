@@ -50,3 +50,22 @@ export const getAppliedJobs = asyncHandler(async (req, res) => {
 
     res.status(200).json({ applications });
 });
+
+
+export const getApplicants=asyncHandler(async(req,res)=>{
+    const jobId=req.params.id;
+
+    const job = await Job.findById(jobId).populate({
+        path:'applications',
+        options:{sort:{createdAt:-1}},
+        populate:{
+            path:'applicant'
+        }
+    });
+
+    if(!job){
+        return res.status(404).json({message:"Job not found"})
+    }
+
+    res.status(200).json({job})
+})
