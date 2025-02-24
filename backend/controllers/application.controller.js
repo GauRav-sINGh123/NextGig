@@ -69,3 +69,18 @@ export const getApplicants=asyncHandler(async(req,res)=>{
 
     res.status(200).json({job})
 })
+
+
+export const updateApplicationStatus = asyncHandler(async (req, res) => {
+    const applicationId = req.params.id;
+    const { status } = req.body;
+  
+    const application=await Application.findById(applicationId);
+
+    if(!application) return res.status(404).json({message:"Application not found"});
+
+    application.status=status.toLowerCase(); // Convert status to lowercase to match the enum
+    await application.save();
+  
+    res.status(200).json({ message: "Application status updated successfully" });
+  });
