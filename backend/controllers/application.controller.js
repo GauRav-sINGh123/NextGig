@@ -31,3 +31,22 @@ export const applyJob = asyncHandler(async (req, res) => {
  
 
 });
+
+export const getAppliedJobs = asyncHandler(async (req, res) => {
+    const userId = req.id;
+
+    const applications = await Application.find({ applicant: userId })
+        .sort({ createdAt: -1 })
+        .populate({
+            path: 'job',
+            populate: {
+                path: 'company',
+            },
+        });
+
+    if (!applications || applications.length === 0) {
+        return res.status(404).json({ message: "No applied jobs found" });
+    }
+
+    res.status(200).json({ applications });
+});
