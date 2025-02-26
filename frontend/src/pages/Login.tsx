@@ -22,7 +22,9 @@ export default function Login() {
 
   const onSubmit = async (data: LoginFormInputs) => {
      try {
-        const res=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`,data)
+        const res=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`,data,{
+          withCredentials:true
+        })
         if(res.status!==200){
             toast.error('Login error');
         }
