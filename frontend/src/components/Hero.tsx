@@ -44,14 +44,14 @@ function Hero() {
           
           <motion.h1 
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold mb-6 text-gradient leading-tight"
+            className="text-4xl md:text-5xl font-bold mb-6 text-gradient leading-tight"
           >
             Find Your Next<br />Dream Job Today
           </motion.h1>
           
           <motion.p 
             variants={itemVariants}
-            className="text-white/60 text-xl mb-12 max-w-2xl mx-auto"
+            className="text-white/60 text-base md:text-lg mb-12 max-w-2xl mx-auto"
           >
             Discover thousands of job opportunities with all the information you need.
           </motion.p>
