@@ -98,3 +98,16 @@
 .navbar-blur.scrolled {
   background: rgba(0, 0, 0, 0.3);
 }
+
+.auth-gradient {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 100%);
+  position: relative;
+}
+
+.auth-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(52, 130, 255, 0.2) 0%, rgba(57, 129, 245, 0) 50%);
+  pointer-events: none;
+}
