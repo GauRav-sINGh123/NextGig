@@ -15,7 +15,7 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen auth-gradient flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export default function Signup() {
           className="card-gradient rounded-2xl p-8"
         >
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gradient mb-2">Create account</h2>
+            <h2 className="text-xl sm:text-3xl font-bold text-gradient mb-2">Create account</h2>
             <p className="text-white/60">Sign up to get started</p>
           </div>
 
