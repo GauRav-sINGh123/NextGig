@@ -51,7 +51,7 @@ function Navbar() {
           </a>
         </nav>
         {user ? (
-          <div className="mr-10 sm:mr-20">
+          <div className=" sm:mr-20">
           <UserAvatar user={user} onLogout={handleLogout} />
           </div>
         ) : (
