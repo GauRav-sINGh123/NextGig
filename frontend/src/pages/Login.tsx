@@ -31,7 +31,6 @@ export default function Login() {
         toast.success('Login successful');
         router('/')
       } catch (error:any) {
-        console.log(error)
         toast.error('Login error:');
       }
   };
