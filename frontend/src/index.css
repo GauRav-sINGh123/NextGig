@@ -111,3 +111,14 @@
   background: radial-gradient(circle at 50% 0%, rgba(52, 130, 255, 0.2) 0%, rgba(57, 129, 245, 0) 50%);
   pointer-events: none;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
