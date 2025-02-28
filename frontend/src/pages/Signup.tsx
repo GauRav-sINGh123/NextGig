@@ -1,29 +1,26 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Mail, Lock, User } from 'lucide-react';
+import { signupSchema } from '../validation/signupSchema';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
+type SignupFormInputs = z.infer<typeof signupSchema>;
 export default function Signup() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    role: '' // student or recruiter
+  // const router=useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupFormInputs>({
+    resolver: zodResolver(signupSchema),
   });
 
-  const handleChange = (e:any) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e:any) => {
-    e.preventDefault();
-    // Handle signup logic here
-    console.log(formData);
-  };
+  const onSubmit = async (data:SignupFormInputs) => {
+    console.log(data)
+  }
+ 
 
   return (
     <div className="min-h-screen auth-gradient flex items-center justify-center px-4">
@@ -39,7 +36,7 @@ export default function Signup() {
             <p className="text-white/60">Sign up to get started</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)}  className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-white/80 mb-2">
                 Full name
@@ -48,13 +45,14 @@ export default function Signup() {
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
+                  {...register("fullName")}
                   className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                   placeholder="Enter your name"
                 />
               </div>
+              {errors.fullName && (
+              <p className="text-blue-400 text-sm mt-1">{errors.fullName.message}</p>
+            )}
             </div>
 
             <div>
@@ -65,13 +63,14 @@ export default function Signup() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  {...register("email")}
                   className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                   placeholder="Enter your email"
                 />
               </div>
+              {errors.email && (
+              <p className="text-blue-400 text-sm mt-1">{errors.email.message}</p>
+            )}
             </div>
 
             <div>
@@ -82,13 +81,14 @@ export default function Signup() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  {...register("password")}
                   className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                   placeholder="Create a password"
                 />
               </div>
+              {errors.password && (
+              <p className="text-blue-400 text-sm mt-1">{errors.password.message}</p>
+            )}
             </div>
 
             <div>
@@ -97,9 +97,7 @@ export default function Signup() {
               </label>
               <div className="relative">
                 <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
+                  {...register("role")}
                   className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-4 text-white appearance-none focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 >
                   <option value="" disabled className="bg-gray-800">Select your role</option>
@@ -112,15 +110,19 @@ export default function Signup() {
                   </svg>
                 </div>
               </div>
+              {errors.role && (
+              <p className="text-blue-400 text-sm mt-1">{errors.role.message}</p>
+                  )}
             </div>
 
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
+              disabled={isSubmitting}
               className="w-full bg-blue-500 text-white rounded-lg py-2 font-medium hover:bg-blue-600 transition-all duration-200 shadow-lg shadow-blue-500/20 cursor-pointer"
             >
-              Create account
+              {isSubmitting ? "Creating Account..." : "Create An Account"}
             </motion.button>
           </form>
 
