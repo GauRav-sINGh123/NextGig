@@ -5,9 +5,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const signup=asyncHandler(async(req,res)=>{
-  const {fullName,email,password,phoneNumber,role}=req.body;
+  const {fullName,email,password,role}=req.body;
     
-  if([fullName,email,password,phoneNumber,role].includes('')) return res.status(400).json({message:"All fields are required"})
+  if([fullName,email,password,role].includes('')) return res.status(400).json({message:"All fields are required"})
     
   const existingUser = await User.findOne({ email });
 
@@ -15,7 +15,7 @@ export const signup=asyncHandler(async(req,res)=>{
     return res.status(400).json({ message: "User already exists" });
   }
   
-  const user=await User.create({fullName,email,password,phoneNumber,role})
+  const user=await User.create({fullName,email,password,role})
 
   const createdUser = await User.findById(user._id).select(
     "-password"
