@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User } from 'lucide-react';
 import { signupSchema } from '../validation/signupSchema';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 type SignupFormInputs = z.infer<typeof signupSchema>;
 export default function Signup() {
-  // const router=useNavigate()
+  const router=useNavigate()
   const {
     register,
     handleSubmit,
@@ -18,7 +20,16 @@ export default function Signup() {
   });
 
   const onSubmit = async (data:SignupFormInputs) => {
-    console.log(data)
+    try {
+      const res=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/signup`,data)
+      if(res.status===200){
+        toast.success("Account created successfully")
+        router('/login')
+      }
+      
+    } catch (error:any) {
+      toast.error("Unable to create account")
+    }
   }
  
 
