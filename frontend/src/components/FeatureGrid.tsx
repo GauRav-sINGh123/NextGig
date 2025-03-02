@@ -1,7 +1,7 @@
 import { ArrowRight, BarChart3, Briefcase, FileText, TrendingUp } from 'lucide-react'
 import {motion} from 'framer-motion'
 import { Line, LineChart, ResponsiveContainer } from 'recharts'
-import AnimatedGradientBorder from './AnimatedGradientBorder';
+
 
 function FeatureGrid() {
     const data = [
@@ -15,8 +15,7 @@ function FeatureGrid() {
       ];
       
   return (
-    <AnimatedGradientBorder className='mb-28'>
-    <section className="py-24 px-6 border-t border-white/10">
+    <section className="py-24 px-6 border-t border-white/10 mb-28">
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <motion.div
         whileHover={{ scale: 1.02 }}
@@ -93,7 +92,6 @@ function FeatureGrid() {
       </motion.div>
     </div>
   </section>
-</AnimatedGradientBorder>
   )
 }
 
