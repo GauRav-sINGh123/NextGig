@@ -1,4 +1,4 @@
-import {Homepage,Login,Signup} from './pages/index'
+import {Homepage,Login,Signup,Profile} from './pages/index'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
  const router=createBrowserRouter([
@@ -13,6 +13,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
   {
     path:'/signup',
     element:<Signup/>
+  },
+  {
+    path:'/profile',
+    element:<Profile/>
   }
  ])
 function App() {
