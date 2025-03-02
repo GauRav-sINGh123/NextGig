@@ -1,5 +1,6 @@
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line} from 'recharts'
 import {motion} from 'framer-motion'
+import AnimatedGradientBorder from './AnimatedGradientBorder';
 
 function Analytic() {
     const data = [
@@ -13,12 +14,13 @@ function Analytic() {
       ];
       
  return (
-    <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
+
+     <div className="max-w-7xl mx-auto">
+        <AnimatedGradientBorder>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card-gradient rounded-2xl border border-white/5 p-8"
+            className="rounded-2xl border border-white/5 p-8"
           >
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
               <div>
@@ -34,7 +36,8 @@ function Analytic() {
                 <button className="px-4 py-2 bg-white/5 rounded-lg text-sm hover:bg-white/10 transition-colors">Yearly</button>
               </div>
             </div>
-            <div className="h-[400px] chart-gradient rounded-xl p-4">
+            < AnimatedGradientBorder>
+            <div className="h-[400px] rounded-xl p-4">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -57,9 +60,11 @@ function Analytic() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
+            </AnimatedGradientBorder>
           </motion.div>
+          </AnimatedGradientBorder>
         </div>
-      </section>
+
   )
 }
 
