@@ -1,4 +1,5 @@
 import {motion} from 'framer-motion'
+import AnimatedGradientBorder from './AnimatedGradientBorder'
 import { ArrowRight, Building2, DollarSign, MapPin } from 'lucide-react'
 
 function FeaturedJob() {
@@ -49,12 +50,12 @@ function FeaturedJob() {
             </motion.button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {featuredJobs.map((job) => (
+              <AnimatedGradientBorder className=' hover:scale-105 duration-500 transition-all ease-in-out'>
               <motion.div
                 key={job.id}
-                whileHover={{ scale: 1.02 }}
-                className="job-card rounded-2xl p-6"
+                className=" rounded-2xl p-6 cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
                   <img src={job.logo} alt={job.company} className="w-12 h-12 rounded-lg" />
@@ -78,11 +79,12 @@ function FeaturedJob() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full mt-6 bg-blue-600/20 text-blue-500 py-2 rounded-lg text-sm font-medium hover:bg-blue-600/30 transition-colors"
+                  className="w-full mt-6 py-2 rounded-lg text-sm font-medium cursor-pointer"
                 >
                   Apply Now
                 </motion.button>
               </motion.div>
+            </AnimatedGradientBorder>
             ))}
           </div>
         </div>
