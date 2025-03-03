@@ -319,26 +319,6 @@ export default function Profile() {
                           </div>
                         </div>
                       </motion.div>
-
-                      <motion.div
-                        className="border-l-2 border-blue-500/30 pl-4 py-2 relative"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        whileHover={{ x: 5 }}
-                      >
-                        <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-blue-500 animate-pulse"></div>
-                        <div className="flex items-start">
-                          <div className="bg-gradient-to-br from-blue-500/30 to-blue-600/30 p-2 rounded-lg mr-4">
-                            <GraduationCap className="w-5 h-5 text-blue-500" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium">Bachelor of Science in Computer Engineering</h3>
-                            <p className="text-white/60 text-sm">MIT</p>
-                            <p className="text-white/40 text-xs mt-1">2014 - 2018</p>
-                          </div>
-                        </div>
-                      </motion.div>
                     </div>
                   </div>
                 </AnimatedGradientBorder>
