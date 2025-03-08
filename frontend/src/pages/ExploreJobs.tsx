@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   Search,
   MapPin,
   DollarSign,
   Clock,
-  Briefcase,
-  ArrowLeft
 } from 'lucide-react';
+import { AnimatedGradientBorder } from '../components';
 
 const exploreJobs = [
   {
@@ -121,25 +119,8 @@ export default function ExploreJobs() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="bg-[#111827]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <Link to="/" className="flex items-center space-x-2">
-              <ArrowLeft className="w-5 h-5 text-white/70" />
-              <span className="text-white/70 text-sm">Back to Home</span>
-            </Link>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="flex items-center space-x-2">
-              <Briefcase className="w-5 h-5 text-blue-500" />
-              <span className="text-lg font-semibold">NextGig</span>
-            </Link>
-          </div>
-        </div>
-      </header>
-
+    <div className="hero-gradient min-h-screen bg-black text-white">
+     
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Search and Filters */}
         <motion.div
@@ -147,7 +128,7 @@ export default function ExploreJobs() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12"
         >
-          <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-8">
+          <div className="flex z-50 flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-8">
             <div>
               <h1 className="text-4xl font-bold mb-2">Explore Jobs</h1>
               <p className="text-white/60">Find your perfect role from our curated job listings</p>
@@ -179,15 +160,11 @@ export default function ExploreJobs() {
               <select
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white/80 focus:outline-none focus:border-blue-500 transition-colors"
+                className="bg-transparent border border-white/10 rounded-lg px-6 py-2 text-sm text-white/80 focus:outline-none focus:border-blue-500 transition-colors"
               >
-                <option value="All">All Locations</option>
+                <option value="All">Full Time</option>
                 <option value="Remote">Remote</option>
-                <option value="San Francisco, CA">San Francisco</option>
-                <option value="New York, NY">New York</option>
-                <option value="Los Angeles, CA">Los Angeles</option>
-                <option value="Seattle, WA">Seattle</option>
-                <option value="Austin, TX">Austin</option>
+                <option value="Remote">Part Time</option>
               </select>
             </div>
           </div>
@@ -201,14 +178,12 @@ export default function ExploreJobs() {
           animate="visible"
         >
           {filteredJobs.map((job) => (
+            <AnimatedGradientBorder className='border border-blue-900' key={job.id}>
             <motion.div
               key={job.id}
               variants={itemVariants}
-              whileHover={{ 
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
-              className="job-card rounded-2xl p-6"
+               
+              className="rounded-2xl p-6"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center">
@@ -244,14 +219,14 @@ export default function ExploreJobs() {
               <div className="mt-6 flex items-center justify-between">
                 <span className="text-white/40 text-sm">{job.experience} experience</span>
                 <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.3)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-600/20 text-blue-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600/30 transition-colors"
+                  className="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-medium  cursor-pointer transition-colors"
                 >
                   Apply Now
                 </motion.button>
               </div>
             </motion.div>
+          </AnimatedGradientBorder>
           ))}
         </motion.div>
 
