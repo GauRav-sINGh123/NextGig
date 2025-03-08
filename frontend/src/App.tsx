@@ -25,7 +25,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
  ])
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white font-sans px:4 md:px-20">
+    <div className="min-h-screen bg-black text-white font-sans px:4 md:px-14">
      <RouterProvider router={router}/>
     </div>
   );
