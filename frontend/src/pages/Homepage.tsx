@@ -1,4 +1,4 @@
-import {Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar} from '../components/index'
+import {Analytic,BrandSection,FeaturedJob,FeatureGrid,Footer,Hero,Navbar} from '../components/index'
 
 function Homepage() {
   return (
@@ -15,6 +15,8 @@ function Homepage() {
       <FeatureGrid />
       {/* Analytics Section */}
       <Analytic />
+
+      <Footer />
     </>
   );
 }

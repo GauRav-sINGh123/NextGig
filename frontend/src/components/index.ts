@@ -5,6 +5,7 @@ import FeatureGrid from "../components/FeatureGrid";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import AnimatedGradientBorder from "./AnimatedGradientBorder";
+import Footer from "./Footer";
 
 
-export {Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder}
+export {Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer};
