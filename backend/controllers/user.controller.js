@@ -7,7 +7,9 @@ dotenv.config();
 export const signup=asyncHandler(async(req,res)=>{
   const {fullName,email,password,role}=req.body;
     
-  if([fullName,email,password,role].includes('')) return res.status(400).json({message:"All fields are required"})
+  if(!fullName || !email || !password || !role){
+    return res.status(400).json({message:"All fields are required"})
+  }
     
   const existingUser = await User.findOne({ email });
 
