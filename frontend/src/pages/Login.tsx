@@ -7,11 +7,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {z} from 'zod'
 import {toast} from 'sonner'
 import axios from 'axios'
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/slices/authSlice';
+// import { RootState } from '../store/store';
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const router=useNavigate()
+  const dispatch=useDispatch()
+  // const user = useSelector((state: RootState) => state.authUser.user);
+
   const {
     register,
     handleSubmit,
@@ -21,20 +27,24 @@ export default function Login() {
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
+
      try {
         const res=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`,data,{
           withCredentials:true
         })
         if(res.status!==200){
             toast.error('Login error');
+            return;
         }
+        dispatch(setUser(res.data.user));
         toast.success('Login successful');
-        router('/')
+        router('/profile')
       } catch (error:any) {
         toast.error('Login error:');
       }
   };
 
+  
   return (
     <div className="min-h-screen auth-gradient flex items-center justify-center px-6 sm:px-4">
        <Link to="/" className="absolute top-4 right-4 text-[13px] text-gray-400 hover:underline">
