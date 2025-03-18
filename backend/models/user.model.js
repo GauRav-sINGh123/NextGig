@@ -66,7 +66,6 @@ const userSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      required: true,
       minLength: 10,
       maxLength: 13,
     },

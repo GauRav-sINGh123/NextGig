@@ -40,7 +40,7 @@ export default function Login() {
         toast.success('Login successful');
         router('/profile')
       } catch (error:any) {
-        toast.error('Login error:');
+        toast.error(error.response.data.message);
       }
   };
 
