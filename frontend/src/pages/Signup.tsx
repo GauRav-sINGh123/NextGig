@@ -21,11 +21,9 @@ export default function Signup() {
 
   const onSubmit = async (data:SignupFormInputs) => {
     try {
-      const res=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/signup`,data)
-      if(res.status===200){
-        toast.success("Account created successfully")
-        router('/login')
-      }
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/signup`,data)
+      toast.success("Account created successfully")
+      router('/login')
       
     } catch (error:any) {
       toast.error("Unable to create account")
