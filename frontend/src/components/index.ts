@@ -8,6 +8,7 @@ import AnimatedGradientBorder from "./AnimatedGradientBorder";
 import Footer from "./Footer";
 import ParticleBackground from "./ParticleBackground";
 import StatusBadge from "./StatusBadge";
+import TabComponent from "./TabComponent";
 
 
-export {StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground };
+export {TabComponent ,StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground };
