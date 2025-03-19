@@ -140,7 +140,7 @@ export default function Profile() {
               <motion.div className="relative">
                 <div className="absolute -inset-1 rounded-full opacity-70 blur-sm animate-[spin_8s_linear_infinite]"></div>
                 <img
-                  src="https://i.pravatar.cc/150?img=68"
+                  src='/public/Profile.png'
                   alt="Profile"
                   className="w-24 h-24 rounded-full border-4 border-black relative z-10"
                 />    
