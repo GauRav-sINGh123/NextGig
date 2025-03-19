@@ -1,4 +1,4 @@
-import AnimatedGradientBorder from '../components/AnimatedGradientBorder'
+import { AnimatedGradientBorder ,ParticleBackground,StatusBadge} from '../components/index'
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -9,10 +9,6 @@ import {
   GraduationCap,
   FileText,
   Edit,
-  Clock,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
   Briefcase,
   Sparkles,
 } from "lucide-react"
@@ -27,104 +23,10 @@ const applications = [
     date: "2025-03-15",
     logo: "https://via.placeholder.com/40",
   },
-  {
-    id: 2,
-    jobTitle: "UX Designer",
-    company: "Design Studio",
-    status: "Pending",
-    date: "2025-03-10",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 3,
-    jobTitle: "Product Manager",
-    company: "Innovate Labs",
-    status: "Interview",
-    date: "2025-03-05",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 4,
-    jobTitle: "Full Stack Developer",
-    company: "WebSolutions",
-    status: "Rejected",
-    date: "2025-02-28",
-    logo: "https://via.placeholder.com/40",
-  },
 ]
 
-// Status badge component
-const StatusBadge = ({ status }: { status: string }) => {
-  let bgColor = ""
-  let textColor = ""
-  let Icon = Clock
-
-  switch (status) {
-    case "Accepted":
-      bgColor = "bg-green-500/20"
-      textColor = "text-green-500"
-      Icon = CheckCircle
-      break
-    case "Rejected":
-      bgColor = "bg-red-500/20"
-      textColor = "text-red-500"
-      Icon = XCircle
-      break
-    case "Interview":
-      bgColor = "bg-blue-500/20"
-      textColor = "text-blue-500"
-      Icon = Briefcase
-      break
-    case "Pending":
-    default:
-      bgColor = "bg-yellow-500/20"
-      textColor = "text-yellow-500"
-      Icon = AlertCircle
-      break
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`flex items-center space-x-1 px-3 py-1 rounded-full ${bgColor} ${textColor}`}
-    >
-      <Icon className="w-3.5 h-3.5" />
-      <span className="text-xs font-medium">{status}</span>
-    </motion.div>
-  )
-}
 
 
-// Animated particles component
-const ParticleBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-blue-500/30"
-          initial={{
-            x: Math.random() * 100 + "%",
-            y: Math.random() * 100 + "%",
-            opacity: Math.random() * 0.5 + 0.2,
-            scale: Math.random() * 0.5 + 0.5,
-          }}
-          animate={{
-            x: [Math.random() * 100 + "%", Math.random() * 100 + "%", Math.random() * 100 + "%"],
-            y: [Math.random() * 100 + "%", Math.random() * 100 + "%", Math.random() * 100 + "%"],
-            opacity: [Math.random() * 0.5 + 0.2, Math.random() * 0.8 + 0.4, Math.random() * 0.5 + 0.2],
-          }}
-          transition={{
-            duration: Math.random() * 20 + 15,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "linear",
-          }}
-        />
-      ))}
-    </div>
-  )
-}
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile")
