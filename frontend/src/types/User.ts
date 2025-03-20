@@ -11,6 +11,7 @@ export interface Profile {
     _id: string;
     college: string;
     collegeEndDate: string;
+    currentRole: string;
 }
 
 export interface User {
