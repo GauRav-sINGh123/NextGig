@@ -107,9 +107,9 @@ function TabComponent() {
                         >
                           <div className="flex items-center text-white/60">
                             <Phone className="w-4 h-4 mr-2" />
-                            <span className="text-sm">{user?.phoneNumber}</span>
+                            <span className="text-sm">Phone Number</span>
                           </div>
-                          <p className="text-white font-medium">+1 (555) 123-4567</p>
+                          <p className="text-white font-medium">{user?.phoneNumber}</p>
                         </motion.div>
 
                         <motion.div
