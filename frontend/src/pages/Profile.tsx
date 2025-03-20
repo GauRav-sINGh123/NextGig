@@ -1,9 +1,11 @@
-import { Edit } from 'lucide-react'
-import { AnimatedGradientBorder ,ParticleBackground,TabComponent} from '../components/index'
-import { motion } from "framer-motion"
+import { Edit } from "lucide-react";
+import {AnimatedGradientBorder,ParticleBackground,TabComponent} from "../components/index";
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function Profile() {
-  
+   const user = useSelector((state: RootState) => state.authUser.user);
   return (
     <div className="min-h-screen bg-black text-white relative">
       <ParticleBackground />
@@ -15,10 +17,10 @@ export default function Profile() {
               <motion.div className="relative">
                 <div className="absolute -inset-1 rounded-full opacity-70 blur-sm animate-[spin_8s_linear_infinite]"></div>
                 <img
-                  src='/public/Profile.png'
+                  src="/public/Profile.png"
                   alt="Profile"
                   className="w-24 h-24 rounded-full border-4 border-black relative z-10"
-                />    
+                />
               </motion.div>
 
               <div className="flex-1">
@@ -30,7 +32,7 @@ export default function Profile() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
                     >
-                      Alex Morgan
+                      {user?.fullName}
                     </motion.h1>
                     <motion.p
                       className="text-white/60"
@@ -38,16 +40,19 @@ export default function Profile() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                      Senior Frontend Developer
+                     {user?.profile.currentRole}
                     </motion.p>
                   </div>
                   <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(59, 130, 246, 0.5)" }}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 0 15px rgba(59, 130, 246, 0.5)",
+                    }}
                     whileTap={{ scale: 0.95 }}
                     className=" bg-transparent text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer hover:from-blue-700 hover:to-blue-800 relative overflow-hidden group"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-1">
-                      <Edit className="w-3.5 h-3.5" />
+                    <Edit className="w-3.5 h-3.5" />
                       Edit Profile
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -58,10 +63,8 @@ export default function Profile() {
           </div>
         </AnimatedGradientBorder>
 
-       <TabComponent/>
+        <TabComponent />
       </div>
-      
     </div>
-  )
+  );
 }
-
