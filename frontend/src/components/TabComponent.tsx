@@ -202,8 +202,8 @@ function TabComponent() {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      {["React", "TypeScript", "JavaScript", "HTML/CSS", "Node.js", "GraphQL", "UI/UX", "Figma"].map(
-                        (skill, index) => (
+                      {user?.profile?.skills?.map(
+                        (skill, index:any) => (
                           <motion.span
                             key={skill}
                             className="bg-gradient-to-r from-blue-500/10 to-blue-600/10 text-blue-400 px-3 py-1 rounded-full text-sm relative overflow-hidden group"
