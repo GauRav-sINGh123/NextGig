@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import bycrpt from "bcryptjs";
+import { current } from "@reduxjs/toolkit";
 
 const profileSchema = new Schema({
   bio: {
@@ -32,6 +33,10 @@ const profileSchema = new Schema({
     default: "",
   },
   currentCompany: {
+    type: String,
+    default: "",
+  },
+  currentRole: {
     type: String,
     default: "",
   },
