@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 export default function Profile() {
-   const user = useSelector((state: RootState) => state.authUser.user);
+ const user = useSelector((state: RootState) => state.authUser.user);
   return (
     <div className="min-h-screen bg-black text-white relative">
       <ParticleBackground />
