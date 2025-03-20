@@ -3,10 +3,6 @@ import bycrpt from "bcryptjs";
 import { current } from "@reduxjs/toolkit";
 
 const profileSchema = new Schema({
-  bio: {
-    type: String,
-    default: "",
-  },
   resume: {
     type: String,
     default: "",

@@ -1,5 +1,4 @@
 export interface Profile {
-    bio: string;
     resume: string;
     resumeName: string;
     currentAddress: string;
