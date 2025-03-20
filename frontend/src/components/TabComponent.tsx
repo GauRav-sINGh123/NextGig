@@ -1,17 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import {
-  User,
-  Mail,
-  Phone,
-  Building2,
-  GraduationCap,
-  FileText,
-  Briefcase,
-  Sparkles,
-} from "lucide-react"
+import {User,Mail,Phone,Building2,GraduationCap,FileText,Briefcase,Sparkles} from "lucide-react"
 import { AnimatedGradientBorder ,StatusBadge} from '../components/index'
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+
 // Sample application data
+
 const applications = [
   {
     id: 1,
@@ -25,7 +20,8 @@ const applications = [
 
 
 function TabComponent() {
-    const [activeTab, setActiveTab] = useState("profile")
+  const [activeTab, setActiveTab] = useState("profile")
+  const user = useSelector((state: RootState) => state.authUser.user);
   return (
     <div> 
           {/* Tabs */}
@@ -85,7 +81,7 @@ function TabComponent() {
                             <User className="w-4 h-4 mr-2" />
                             <span className="text-sm">Full Name</span>
                           </div>
-                          <p className="text-white font-medium">Alex Morgan</p>
+                          <p className="text-white font-medium">{user?.fullName}</p>
                         </motion.div>
 
                         <motion.div
@@ -98,7 +94,7 @@ function TabComponent() {
                             <Mail className="w-4 h-4 mr-2" />
                             <span className="text-sm">Email</span>
                           </div>
-                          <p className="text-white font-medium">alex.morgan@example.com</p>
+                          <p className="text-white font-medium">{user?.email}</p>
                         </motion.div>
                       </div>
 
@@ -111,7 +107,7 @@ function TabComponent() {
                         >
                           <div className="flex items-center text-white/60">
                             <Phone className="w-4 h-4 mr-2" />
-                            <span className="text-sm">Phone</span>
+                            <span className="text-sm">{user?.phoneNumber}</span>
                           </div>
                           <p className="text-white font-medium">+1 (555) 123-4567</p>
                         </motion.div>
@@ -126,7 +122,7 @@ function TabComponent() {
                             <Building2 className="w-4 h-4 mr-2" />
                             <span className="text-sm">Current Company</span>
                           </div>
-                          <p className="text-white font-medium">TechCorp Inc.</p>
+                          <p className="text-white font-medium">{user?.profile?.currentCompany}</p>
                         </motion.div>
                       </div>
                     </div>
@@ -157,9 +153,9 @@ function TabComponent() {
                             <GraduationCap className="w-5 h-5 text-blue-500" />
                           </div>
                           <div>
-                            <h3 className="font-medium">Master of Computer Science</h3>
-                            <p className="text-white/60 text-sm">Stanford University</p>
-                            <p className="text-white/40 text-xs mt-1">2018 - 2020</p>
+                            <h3 className="font-medium">{user?.profile?.education}</h3>
+                            <p className="text-white/60 text-sm">{user?.profile?.college}</p>
+                            <p className="text-white/40 text-xs mt-1">{user?.profile?.collegeEndDate}</p>
                           </div>
                         </div>
                       </motion.div>
