@@ -94,7 +94,7 @@ export const currentUser=asyncHandler(async(req,res)=>{
 
 
 export const updateUser=asyncHandler(async(req,res)=>{
-   const {fullName,phoneNumber,bio,currentAddress,skills,currentCompany,education,college,collegeEndDate}=req.body;
+   const {fullName,phoneNumber,bio,currentAddress,skills,currentCompany,education,college,collegeEndDate,currentRole}=req.body;
    
    let skillsArray;
    if(skills){
@@ -116,6 +116,7 @@ export const updateUser=asyncHandler(async(req,res)=>{
    user.profile.education = education;
    user.profile.college = college;
    user.profile.collegeEndDate = collegeEndDate;
+   user.profile.currentRole = currentRole;
  
    await user.save();
 
