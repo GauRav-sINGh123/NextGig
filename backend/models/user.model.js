@@ -11,10 +11,6 @@ const profileSchema = new Schema({
     type: String,
     default: "",
   },
-  currentAddress: {
-    type: String,
-    default: "",
-  },
   skills: {
     type: [String],
     default: [],
