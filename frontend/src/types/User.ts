@@ -1,7 +1,6 @@
 export interface Profile {
     resume: string;
     resumeName: string;
-    currentAddress: string;
     skills: string[];
     company: string | null;
     profilePhoto: string;
