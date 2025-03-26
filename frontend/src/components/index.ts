@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import ParticleBackground from "./ParticleBackground";
 import StatusBadge from "./StatusBadge";
 import TabComponent from "./TabComponent";
+import ProfileEditModal from "./ProfileEditModal";
 
 
-export {TabComponent ,StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground };
+export {ProfileEditModal,TabComponent ,StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground };

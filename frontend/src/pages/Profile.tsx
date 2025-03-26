@@ -3,9 +3,16 @@ import {AnimatedGradientBorder,ParticleBackground,TabComponent} from "../compone
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { useState } from "react";
+import ProfileEditModal from "../components/ProfileEditModal";
 
 export default function Profile() {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
  const user = useSelector((state: RootState) => state.authUser.user);
+
+  const handleSaveProfile = (profileData: any) => {
+    console.log(profileData)
+  }
   return (
     <div className="min-h-screen bg-black text-white relative">
       <ParticleBackground />
@@ -44,6 +51,7 @@ export default function Profile() {
                     </motion.p>
                   </div>
                   <motion.button
+                    onClick={() => setIsEditModalOpen(true)}
                     whileHover={{
                       scale: 1.05,
                       boxShadow: "0 0 15px rgba(59, 130, 246, 0.5)",
@@ -62,9 +70,9 @@ export default function Profile() {
             </div>
           </div>
         </AnimatedGradientBorder>
-
         <TabComponent />
       </div>
+      <ProfileEditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} onSave={handleSaveProfile} />
     </div>
   );
 }
