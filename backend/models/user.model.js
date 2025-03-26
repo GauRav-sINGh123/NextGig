@@ -61,11 +61,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    phoneNumber: {
-      type: String,
-      minLength: 10,
-      maxLength: 13,
-    },
     role: {
       type: String,
       enum: ["student", "recruiter"],
