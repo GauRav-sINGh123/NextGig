@@ -1,17 +1,32 @@
 import { Edit } from "lucide-react";
 import {AnimatedGradientBorder,ParticleBackground,TabComponent} from "../components/index";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useState } from "react";
 import ProfileEditModal from "../components/ProfileEditModal";
+import { toast } from "sonner";
+import axios from "axios";
+import { setUser } from '../store/slices/authSlice';
 
 export default function Profile() {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+ const [isEditModalOpen, setIsEditModalOpen] = useState(false)
  const user = useSelector((state: RootState) => state.authUser.user);
+ const dispatch=useDispatch()
 
-  const handleSaveProfile = (profileData: any) => {
-    console.log(profileData)
+  const handleSaveProfile =async (profileData: any) => {
+    try {
+      const response= await axios.put(`${import.meta.env.VITE_BASE_URL}/api/auth/update_user`,profileData,{withCredentials:true});
+      if(response.status!==200){
+        toast.error('Profile update failed')
+        return
+      }
+      dispatch(setUser(response.data.user));
+      toast.success("Profile updated successfully")
+    } catch (error:any) {
+      console.error("Error saving profile:", error.message);
+      toast.error("Error saving profile: ");
+    }
   }
   return (
     <div className="min-h-screen bg-black text-white relative">
