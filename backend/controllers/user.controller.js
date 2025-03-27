@@ -112,6 +112,8 @@ export const updateUser=asyncHandler(async(req,res)=>{
    user.profile.currentRole = currentRole;
  
    await user.save();
-
-   res.status(200).json({message:"User updated successfully"})
+    
+   const updatedUser = await User.findById(userId).select("-password");
+   
+   res.status(200).json(updatedUser)
 })
