@@ -7,7 +7,6 @@ export interface Profile {
     currentCompany: string;
     education: string;
     _id: string;
-    college: string;
     collegeEndDate: string;
     currentRole: string;
 }

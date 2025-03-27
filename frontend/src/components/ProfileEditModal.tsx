@@ -23,7 +23,6 @@ export default function ProfileEditModal({
     skills: [] as string[],
     currentCompany: "",
     education: "",
-    college: "",
     collegeEndDate: "",
     currentRole: "",
   });
@@ -37,10 +36,7 @@ export default function ProfileEditModal({
         skills: user.profile?.skills || [],
         currentCompany: user.profile?.currentCompany || "",
         education: user.profile?.education || "",
-        college: user.profile?.college || "",
-        collegeEndDate: user.profile?.collegeEndDate
-          ? new Date(user.profile?.collegeEndDate).toISOString().split("T")[0]
-          : "",
+        collegeEndDate: user.profile?.collegeEndDate || "",
         currentRole: user.profile?.currentRole || "",
       });
     }
