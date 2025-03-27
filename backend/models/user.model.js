@@ -36,10 +36,6 @@ const profileSchema = new Schema({
     type: String,
     default: "",
   },
-  college: {
-    type: String,
-    default: "",
-  },
   collegeEndDate: {
     type:String,
     default: "",

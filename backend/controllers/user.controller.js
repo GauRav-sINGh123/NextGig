@@ -94,12 +94,9 @@ export const currentUser=asyncHandler(async(req,res)=>{
 
 
 export const updateUser=asyncHandler(async(req,res)=>{
-   const {fullName,skills,currentCompany,education,college,collegeEndDate,currentRole}=req.body;
+   const {fullName,skills,currentCompany,education,collegeEndDate,currentRole}=req.body;
    
-   let skillsArray;
-   if(skills){
-       skillsArray = skills.split(",");
-   }
+  
    const userId = req.id;  
    let user = await User.findById(userId);
 
@@ -108,10 +105,9 @@ export const updateUser=asyncHandler(async(req,res)=>{
    }
  
    user.fullName = fullName;
-   user.profile.skills = skillsArray;
+   user.profile.skills = skills;
    user.profile.currentCompany = currentCompany;
    user.profile.education = education;
-   user.profile.college = college;
    user.profile.collegeEndDate = collegeEndDate;
    user.profile.currentRole = currentRole;
  
