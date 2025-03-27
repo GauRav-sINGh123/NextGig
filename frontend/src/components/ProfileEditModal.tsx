@@ -29,7 +29,7 @@ export default function ProfileEditModal({
     profilePhoto: "",
   });
 
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  // const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [skillInput, setSkillInput] = useState("");
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function ProfileEditModal({
         profilePhoto: user.profile?.profilePhoto || "",
       });
 
-      setPreviewImage(user.profile?.profilePhoto || null);
+      // setPreviewImage(user.profile?.profilePhoto || null);
     }
   }, [user, isOpen]);
 
@@ -84,18 +84,18 @@ export default function ProfileEditModal({
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setPreviewImage(result);
-        setFormData((prev) => ({ ...prev, profilePhoto: result }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     const file = e.target.files[0];
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       const result = reader.result as string;
+  //       setPreviewImage(result);
+  //       setFormData((prev) => ({ ...prev, profilePhoto: result }));
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,7 +135,7 @@ export default function ProfileEditModal({
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Profile Photo */}
+                {/* Profile Photo
                 <div>
                   <label className="block text-white/80 text-sm font-medium mb-2">
                     Profile Photo
@@ -153,7 +153,7 @@ export default function ProfileEditModal({
                       className="bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 {/* Full Name */}
                 <input
