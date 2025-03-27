@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import {User,Mail,Phone,Building2,GraduationCap,FileText,Briefcase,Sparkles} from "lucide-react"
+import {User,Mail,Building2,GraduationCap,FileText,Briefcase,Sparkles} from "lucide-react"
 import { AnimatedGradientBorder ,StatusBadge} from '../components/index'
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -99,19 +99,7 @@ function TabComponent() {
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <motion.div
-                          className="space-y-2"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 }}
-                        >
-                          <div className="flex items-center text-white/60">
-                            <Phone className="w-4 h-4 mr-2" />
-                            <span className="text-sm">Phone Number</span>
-                          </div>
-                          <p className="text-white font-medium">{user?.phoneNumber}</p>
-                        </motion.div>
-
+                         
                         <motion.div
                           className="space-y-2"
                           initial={{ opacity: 0, x: -10 }}
@@ -154,7 +142,6 @@ function TabComponent() {
                           </div>
                           <div>
                             <h3 className="font-medium">{user?.profile?.education}</h3>
-                            <p className="text-white/60 text-sm">{user?.profile?.college}</p>
                             <p className="text-white/40 text-xs mt-1">{user?.profile?.collegeEndDate}</p>
                           </div>
                         </div>
