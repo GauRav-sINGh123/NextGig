@@ -26,10 +26,8 @@ export default function ProfileEditModal({
     college: "",
     collegeEndDate: "",
     currentRole: "",
-    profilePhoto: "",
   });
 
-  // const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [skillInput, setSkillInput] = useState("");
 
   useEffect(() => {
@@ -40,12 +38,11 @@ export default function ProfileEditModal({
         currentCompany: user.profile?.currentCompany || "",
         education: user.profile?.education || "",
         college: user.profile?.college || "",
-        collegeEndDate: user.profile?.collegeEndDate || "",
+        collegeEndDate: user.profile?.collegeEndDate
+          ? new Date(user.profile?.collegeEndDate).toISOString().split("T")[0]
+          : "",
         currentRole: user.profile?.currentRole || "",
-        profilePhoto: user.profile?.profilePhoto || "",
       });
-
-      // setPreviewImage(user.profile?.profilePhoto || null);
     }
   }, [user, isOpen]);
 
@@ -53,29 +50,29 @@ export default function ProfileEditModal({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSkillInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     if (value.includes(",")) {
       const newSkill = value.replace(",", "").trim();
-  
-      // Convert all skills to lowercase for case-insensitive comparison
-      const lowerCaseSkills = formData.skills.map(skill => skill.toLowerCase());
-  
+      const lowerCaseSkills = formData.skills.map((skill) => skill.toLowerCase());
+
       if (newSkill && !lowerCaseSkills.includes(newSkill.toLowerCase())) {
         setFormData((prev) => ({
           ...prev,
           skills: [...prev.skills, newSkill],
         }));
       }
-      setSkillInput("");  
+      setSkillInput("");
     } else {
       setSkillInput(value);
     }
   };
-  
 
   const removeSkill = (index: number) => {
     setFormData((prev) => ({
@@ -83,19 +80,6 @@ export default function ProfileEditModal({
       skills: prev.skills.filter((_, i) => i !== index),
     }));
   };
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     const file = e.target.files[0];
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       const result = reader.result as string;
-  //       setPreviewImage(result);
-  //       setFormData((prev) => ({ ...prev, profilePhoto: result }));
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,77 +114,105 @@ export default function ProfileEditModal({
                 <X className="w-5 h-5" />
               </button>
 
-              <h2 className="text-2xl font-bold mb-6 text-white">
-                Edit Profile
-              </h2>
+              <h2 className="text-2xl font-bold mb-6 text-white">Edit Profile</h2>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Profile Photo
-                <div>
-                  <label className="block text-white/80 text-sm font-medium mb-2">
-                    Profile Photo
-                  </label>
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={previewImage || "/Profile.png"}
-                      alt="Profile"
-                      className="w-20 h-20 rounded-full border-4 border-black object-cover"
-                    />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                      className="bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none"
-                    />
-                  </div>
-                </div> */}
-
                 {/* Full Name */}
+                <label className="block text-white/80 text-sm font-medium">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="fullName"
-                  placeholder="Full Name"
+                  placeholder="Enter your full name"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white"
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
                 />
 
                 {/* Skills */}
-                <div>
-                  <label className="block text-white/80 text-sm font-medium mb-2">
-                    Skills (type and press `,` to add)
-                  </label>
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {formData.skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm flex items-center"
-                      >
-                        {skill}
-                        <X
-                          className="ml-2 cursor-pointer w-4 h-4"
-                          onClick={() => removeSkill(index)}
-                        />
-                      </span>
-                    ))}
-                  </div>
-                  <input
-                    type="text"
-                    value={skillInput}
-                    onChange={handleSkillInput}
-                    className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white"
-                  />
+                <label className="block text-white/80 text-sm font-medium">
+                  Skills (type and press `,` to add)
+                </label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {formData.skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm flex items-center"
+                    >
+                      {skill}
+                      <X
+                        className="ml-2 cursor-pointer w-4 h-4"
+                        onClick={() => removeSkill(index)}
+                      />
+                    </span>
+                  ))}
                 </div>
+                <input
+                  type="text"
+                  value={skillInput}
+                  onChange={handleSkillInput}
+                  placeholder="Add a skill and press `,`"
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                />
 
-                {/* Other Inputs */}
-                <input type="text" name="currentCompany" placeholder="Current Company" value={formData.currentCompany} onChange={handleChange} className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white" />
-                <input type="text" name="currentRole" placeholder="Current Role" value={formData.currentRole} onChange={handleChange} className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white" />
-                <input type="text" name="education" placeholder="Education" value={formData.education} onChange={handleChange} className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white" />
+                {/* Current Company */}
+                <label className="block text-white/80 text-sm font-medium">
+                  Current Company
+                </label>
+                <input
+                  type="text"
+                  name="currentCompany"
+                  placeholder="Enter your current company"
+                  value={formData.currentCompany}
+                  onChange={handleChange}
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                />
 
-                {/* Date Picker Fix */}
-                <input type="date" name="collegeEndDate" value={formData.collegeEndDate} onChange={handleChange} className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white cursor-pointer" />
+                {/* Current Role */}
+                <label className="block text-white/80 text-sm font-medium">
+                  Current Role
+                </label>
+                <input
+                  type="text"
+                  name="currentRole"
+                  placeholder="Enter your current role"
+                  value={formData.currentRole}
+                  onChange={handleChange}
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                />
 
-                <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg">
+                {/* Education */}
+                <label className="block text-white/80 text-sm font-medium">
+                  Education
+                </label>
+                <input
+                  type="text"
+                  name="education"
+                  placeholder="Enter your education"
+                  value={formData.education}
+                  onChange={handleChange}
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                />
+
+                {/* College End Date */}
+                <label className="block text-white/80 text-sm font-medium">
+                  College End Year
+                </label>
+                <input
+                  type="text"
+                  name="collegeEndDate"
+                  value={formData.collegeEndDate}
+                  onChange={handleChange}
+                  placeholder="Enter your college end year"
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white cursor-pointer focus:outline-none focus:border-blue-500"
+                />
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-2 rounded-lg"
+                >
                   Save Changes
                 </button>
               </form>
