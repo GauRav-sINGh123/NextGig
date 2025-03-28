@@ -24,7 +24,6 @@ export default function Profile() {
       dispatch(setUser(response.data.user));
       toast.success("Profile updated successfully")
     } catch (error:any) {
-      console.error("Error saving profile:", error.message);
       toast.error("Error saving profile: ");
     }
   }
