@@ -201,7 +201,7 @@ export default function ProfileEditModal({
                   value={formData.collegeEndDate}
                   onChange={handleChange}
                   placeholder="Enter your college end year"
-                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white cursor-pointer focus:outline-none focus:border-blue-500"
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
                 />
 
                 {/* Submit Button */}
