@@ -3,14 +3,14 @@ import { Briefcase } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import UserAvatar from "./UserAvatar"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../store/store"
+import { setUser } from '../store/slices/authSlice';
 
 function Navbar() {
-  const [user, setUser] = useState<{ name: string; email: string; avatarUrl?: string } | null>({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    // avatarUrl: "https://github.com/shadcn.png",
-  })
+  const user = useSelector((state: RootState) => state.authUser.user);
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
+  const dispatch=useDispatch()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +22,7 @@ function Navbar() {
   }, [])
 
   const handleLogout = () => {
-     
-    setUser(null)
-    console.log("User logged out")
+    dispatch(setUser(null));
   }
 
   return (

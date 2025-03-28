@@ -1,21 +1,16 @@
- 
-
 import { useState } from "react"
-import { LogOut, User } from "lucide-react"
+import { LogOut,User2} from "lucide-react"
+import { User } from "../types/User"
 
 interface UserAvatarProps {
-  user: {
-    name: string
-    email: string
-    avatarUrl?: string
-  }
+  user:User
   onLogout: () => void
 }
 
 export default function UserAvatar({ user, onLogout }: UserAvatarProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const initials = user.name
+  const initials = user.fullName
     .split(" ")
     .map((name) => name[0])
     .join("")
@@ -38,10 +33,10 @@ export default function UserAvatar({ user, onLogout }: UserAvatarProps) {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        {user.avatarUrl ? (
+        {user?.profile.profilePhoto ? (
           <img
-            src={user.avatarUrl || "/placeholder.svg"}
-            alt={user.name}
+            src={user?.profile.profilePhoto || "/placeholder.svg"}
+            alt={user?.fullName}
             className="h-9 w-9 rounded-full  object-cover"
           />
         ) : (
@@ -61,10 +56,10 @@ export default function UserAvatar({ user, onLogout }: UserAvatarProps) {
 
               <div className="relative py-1">
                 <div className="flex items-center gap-3 px-4 py-3">
-                  {user.avatarUrl ? (
+                  {user?.profile?.profilePhoto ? (
                     <img
-                      src={user.avatarUrl || "/placeholder.svg"}
-                      alt={user.name}
+                      src={user?.profile?.profilePhoto || "/placeholder.svg"}
+                      alt={user?.fullName}
                       className="h-10 w-10 rounded-full object-cover ring-2 ring-white/50 dark:ring-white/20"
                     />
                   ) : (
@@ -73,7 +68,7 @@ export default function UserAvatar({ user, onLogout }: UserAvatarProps) {
                     </div>
                   )}
                   <div className="flex flex-col">
-                    <p className="text-sm font-medium text-foreground/90">{user.name}</p>
+                    <p className="text-sm font-medium text-foreground/90">{user?.fullName}</p>
                     <p className="text-xs text-foreground/60">{user.email}</p>
                   </div>
                 </div>
@@ -85,7 +80,7 @@ export default function UserAvatar({ user, onLogout }: UserAvatarProps) {
                   className="flex items-center px-4 py-2 text-sm text-foreground/80 hover:bg-white/10 dark:hover:bg-white/5 hover:text-foreground w-full text-left transition-colors duration-200"
                   onClick={closeDropdown}
                 >
-                  <User className="mr-2 h-4 w-4" />
+                  <User2 className="mr-2 h-4 w-4" />
                   View Profile
                 </a>
 
