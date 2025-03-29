@@ -33,28 +33,31 @@ function TabComponent() {
     <div>
       {/* Tabs */}
       <div className="flex border-b border-white/10 mb-8 relative">
-        {["profile", "applications"].map((tab) => (
-          <motion.button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 text-sm font-medium  cursor-pointer transition-colors relative ${
-              activeTab === tab
-                ? "text-blue-500"
-                : "text-white/60 hover:text-white"
-            }`}
-            whileHover={{ y: -2 }}
-            whileTap={{ y: 0 }}
-          >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            {activeTab === tab && (
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600"
-                layoutId="activeTab"
-                initial={false}
-              />
-            )}
-          </motion.button>
-        ))}
+        {["profile", "applications", user?.role === "recruiter" && "company"]
+          .filter(Boolean)
+          .map((tab) => (
+            <motion.button
+              key={String(tab)}
+              onClick={() => setActiveTab(tab as string)}
+              className={`px-6 py-3 text-sm font-medium cursor-pointer transition-colors relative ${
+                activeTab === tab
+                  ? "text-blue-500"
+                  : "text-white/60 hover:text-white"
+              }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              {(tab as string).charAt(0).toUpperCase() +
+                (tab as string).slice(1)}
+              {activeTab === tab && (
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600"
+                  layoutId="activeTab"
+                  initial={false}
+                />
+              )}
+            </motion.button>
+          ))}
       </div>
       {/* Profile Content */}
       <AnimatePresence mode="wait">
@@ -353,6 +356,46 @@ function TabComponent() {
                     </a>
                   </div>
                 )}
+              </div>
+            </AnimatedGradientBorder>
+          </motion.div>
+        )}
+
+        {activeTab === "company" && user?.role === "recruiter" && (
+          <motion.div
+            key="company"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <AnimatedGradientBorder>
+              <div className="p-8">
+                <div className="flex flex-col sm:flex-row items-center justify-between">
+                  <h2 className="text-xl font-semibold flex items-center gap-2">
+                    <Building2 className="w-5 h-5 text-blue-500" />
+                    Manage Company
+                  </h2>
+
+                  {/* Create Company Button */}
+                  <motion.button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-blue-600 mt-4"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => console.log("Create Company clicked")} // Replace with actual navigation logic
+                  >
+                    + Create Company
+                  </motion.button>
+                </div>
+
+                <div className="mt-6">
+                  <div className="flex items-center justify-between bg-white/5 p-4 rounded-lg">
+                    {/* <span className="text-white font-medium">{user?bio?.company?.name || "No Company"}</span> */}
+                    {/* <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm">
+                      Delete
+                    </button> */}
+                  </div>
+                </div>
               </div>
             </AnimatedGradientBorder>
           </motion.div>
