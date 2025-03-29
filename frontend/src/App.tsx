@@ -1,4 +1,4 @@
-import {Homepage,Login,Signup,Profile,ExploreJobs} from './pages/index'
+import {Homepage,Login,Signup,Profile,ExploreJobs,Admin} from './pages/index'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
  const router=createBrowserRouter([
@@ -21,6 +21,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
   {
     path:'/explore',
     element:<ExploreJobs/>
+  },
+  {
+    path:'/admin',
+    element:<Admin/>
   }
  ])
 function App() {
