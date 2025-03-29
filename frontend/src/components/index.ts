@@ -10,6 +10,8 @@ import ParticleBackground from "./ParticleBackground";
 import StatusBadge from "./StatusBadge";
 import TabComponent from "./TabComponent";
 import ProfileEditModal from "./ProfileEditModal";
+import Company from "./tabs/Company";
+import Application from "./tabs/Application";
 
 
-export {ProfileEditModal,TabComponent ,StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground };
+export {ProfileEditModal,TabComponent ,StatusBadge,Analytic,BrandSection,FeaturedJob,FeatureGrid,Hero,Navbar,AnimatedGradientBorder,Footer,ParticleBackground,Company,Application};
