@@ -1,6 +1,7 @@
 import { Building2 } from "lucide-react";
 import AnimatedGradientBorder from "../AnimatedGradientBorder";
 import {motion} from 'framer-motion'
+import { Link } from "react-router-dom";
 
 
 function Company() {
@@ -21,7 +22,8 @@ function Company() {
             </h2>
 
             {/* Create Company Button */}
-            <motion.button
+           <Link to="/profile/create_company">
+           <motion.button
               className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-blue-600 mt-4"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -29,6 +31,7 @@ function Company() {
             >
               + Create Company
             </motion.button>
+           </Link>
           </div>
 
           <div className="mt-6">
