@@ -38,15 +38,15 @@ function Navbar() {
         <span className="text-lg font-semibold">NextGig</span>
       </div>
       <nav className="hidden md:flex items-center space-x-8">
-        <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
+        <Link to={"/browse"} className="text-sm text-white/70 hover:text-white transition-colors">
           Find Jobs
-        </a>
-        <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
+        </Link>
+        <Link to="/companies" className="text-sm text-white/70 hover:text-white transition-colors">
           Companies
-        </a>
-        <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
-          Career Tips
-        </a>
+        </Link>
+        <Link to='/careers' className="text-sm text-white/70 hover:text-white transition-colors">
+          Careers
+        </Link>
       </nav>
       {user ? (
         <div>
