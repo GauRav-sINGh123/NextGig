@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { AnimatedGradientBorder } from '../components';
 
 type SignupFormInputs = z.infer<typeof signupSchema>;
 export default function Signup() {
@@ -34,11 +35,12 @@ export default function Signup() {
   return (
     <div className="min-h-screen auth-gradient flex items-center justify-center px-4">
       <div className="w-full max-w-md mt-14">
+        <AnimatedGradientBorder>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="card-gradient rounded-2xl p-8"
+          className="rounded-2xl p-8"
         >
           <div className="text-center mb-8">
             <h2 className="text-xl sm:text-3xl font-bold text-gradient mb-2">Create account</h2>
@@ -144,6 +146,7 @@ export default function Signup() {
             </p>
           </div>
         </motion.div>
+        </AnimatedGradientBorder>
       </div>
     </div>
   );
