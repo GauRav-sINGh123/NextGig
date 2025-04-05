@@ -9,6 +9,7 @@ import {toast} from 'sonner'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/slices/authSlice';
+import { AnimatedGradientBorder } from '../components';
 // import { RootState } from '../store/store';
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -46,16 +47,18 @@ export default function Login() {
 
   
   return (
+
     <div className="min-h-screen auth-gradient flex items-center justify-center px-6 sm:px-4">
        <Link to="/" className="absolute top-4 right-4 text-[13px] text-gray-400 hover:underline">
         Back to Home
       </Link>
-      <div className="w-full max-w-md px-8">
+      <AnimatedGradientBorder>
+      <div className="w-full px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="card-gradient rounded-2xl p-8"
+          className="rounded-2xl p-10"
         >
           <div className="text-center mb-8">
             <h2 className="text-xl sm:text-3xl font-bold text-gradient mb-2">Welcome back</h2>
@@ -121,6 +124,7 @@ export default function Login() {
           </div>
         </motion.div>
       </div>
+     </AnimatedGradientBorder>
     </div>
   );
 }
