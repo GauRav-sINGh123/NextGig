@@ -38,11 +38,8 @@ function Navbar() {
         <span className="text-lg font-semibold">NextGig</span>
       </div>
       <nav className="hidden md:flex items-center space-x-8">
-        <Link to={"/browse"} className="text-sm text-white/70 hover:text-white transition-colors">
+        <Link to={"/jobs"} className="text-sm text-white/70 hover:text-white transition-colors">
           Find Jobs
-        </Link>
-        <Link to="/companies" className="text-sm text-white/70 hover:text-white transition-colors">
-          Companies
         </Link>
         <Link to='/careers' className="text-sm text-white/70 hover:text-white transition-colors">
           Careers
