@@ -52,8 +52,8 @@ export default function Login() {
        <Link to="/" className="absolute top-4 right-4 text-[13px] text-gray-400 hover:underline">
         Back to Home
       </Link>
+      <div className="w-full max-w-md px-6">
       <AnimatedGradientBorder>
-      <div className="w-full px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,8 +123,8 @@ export default function Login() {
             </p>
           </div>
         </motion.div>
-      </div>
      </AnimatedGradientBorder>
+      </div>
     </div>
   );
 }
