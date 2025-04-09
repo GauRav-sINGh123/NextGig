@@ -27,6 +27,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
     element:<Admin/>
   },
   {
+    path:'/admin/create-company',
+    element:<Jobs/>
+  },
+  {
     path:'/jobs',
     element:<Jobs/>
   },
