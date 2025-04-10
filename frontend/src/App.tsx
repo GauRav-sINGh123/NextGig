@@ -1,4 +1,4 @@
-import {Homepage,Login,Signup,Profile,ExploreJobs,Admin,Jobs,Careers} from './pages/index'
+import {Homepage,Login,Signup,Profile,ExploreJobs,Admin,Jobs,Careers,CreateCompany} from './pages/index'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
  const router=createBrowserRouter([
@@ -28,7 +28,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
   },
   {
     path:'/admin/create-company',
-    element:<Jobs/>
+    element:<CreateCompany/>
   },
   {
     path:'/jobs',
