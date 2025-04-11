@@ -65,7 +65,7 @@ export default function CreateCompany() {
   ];
 
   return (
-    <div className="min-h-screen relative bg-[#050508] overflow-hidden">
+    <div className="auth-gradient min-h-screen relative overflow-hidden">
       {/* Top radial gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
       
