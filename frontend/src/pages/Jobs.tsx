@@ -180,8 +180,8 @@ export default function Jobs() {
   );
 
   return (
-    <div className="auth-gradient min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="  min-h-screen w-full">
+      <div className="w-full mx-auto px-4 py-8">
         {/* Search and Filters */}
         <AnimatedGradientBorder>
         <div className="bg-[#0A0F1C]/40 backdrop-blur-xl rounded-2xl border border-white/10 p-6 mb-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all">

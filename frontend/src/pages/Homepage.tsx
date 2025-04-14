@@ -1,10 +1,8 @@
-import {Analytic,BrandSection,FeaturedJob,FeatureGrid,Footer,Hero,Navbar} from '../components/index'
+import {Analytic,BrandSection,FeaturedJob,FeatureGrid,Footer,Hero} from '../components/index'
 
 function Homepage() {
   return (
     <>
-      {/* Header */}
-      <Navbar />
       {/* Hero Section */}
       <Hero />
       {/* Brands Section */}
