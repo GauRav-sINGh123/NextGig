@@ -37,10 +37,10 @@ function Navbar() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="max-w-full mx-auto py-4 px-4 sm:px-6 md:px-8 flex justify-between items-center"
     >
-      <div className="flex items-center space-x-3">
+      <Link to="/" className="flex items-center space-x-3">
         <Briefcase className="w-5 h-5 text-blue-500" />
         <span className="text-lg font-semibold">NextGig</span>
-      </div>
+      </Link>
       <nav className="hidden md:flex items-center space-x-8">
         <Link to={"/jobs"} className="text-sm text-white/70 hover:text-white transition-colors">
           Find Jobs
