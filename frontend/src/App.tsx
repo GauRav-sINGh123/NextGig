@@ -7,17 +7,43 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout/>,  
     children: [
-      { path: "", element: <Homepage /> },
-      { path: "profile", element: <Profile /> },
-      { path: "explore", element: <ExploreJobs /> },
-      { path: "jobs", element: <Jobs /> },
-      { path: "career", element: <Careers /> },
-      { path: "admin", element: <Admin /> },
-      { path: "admin/create-company", element: <CreateCompany /> },
+      { 
+        path: "", 
+        element: <Homepage /> 
+      },
+      { 
+        path: "profile",
+        element: <Profile /> 
+      },
+      { 
+        path: "explore", 
+        element: <ExploreJobs /> 
+      },
+      { 
+        path: "jobs", 
+        element: <Jobs /> 
+      },
+      { 
+        path: "careers", 
+        element: <Careers /> 
+      },
+      { path: "admin", 
+        element: <Admin /> 
+      },
+      { 
+        path: "admin/create-company", 
+        element: <CreateCompany /> 
+      },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/signup", element: <Signup /> },
+  { 
+    path: "/login", 
+    element: <Login /> 
+  },
+  { 
+    path: "/signup", 
+    element: <Signup /> 
+  },
 ]);
 
 function App() {
