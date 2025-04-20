@@ -1,27 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Building2,
-  MapPin,
-  Globe,
-  Users,
-  Mail,
-  Phone,
-  Link as LinkIcon,
-  Upload,
-  Plus,
-} from 'lucide-react';
+import {Building2,MapPin,Globe,Upload,Plus} from 'lucide-react';
 
 export default function CreateCompany() {
   const [formData, setFormData] = useState({
     name: '',
-    industry: '',
     location: '',
     website: '',
-    size: '',
-    email: '',
-    phone: '',
-    linkedin: '',
     description: '',
     logo: null as File | null,
   });
@@ -42,27 +27,9 @@ export default function CreateCompany() {
     console.log(formData);
   };
 
-  const industries = [
-    'Technology',
-    'Healthcare',
-    'Finance',
-    'Education',
-    'Manufacturing',
-    'Retail',
-    'Media',
-    'Transportation',
-    'Construction',
-    'Other'
-  ];
+  
 
-  const companySizes = [
-    '1-10 employees',
-    '11-50 employees',
-    '51-200 employees',
-    '201-500 employees',
-    '501-1000 employees',
-    '1000+ employees'
-  ];
+ 
 
   return (
     <div className="auth-gradient min-h-screen relative overflow-hidden">
@@ -145,46 +112,9 @@ export default function CreateCompany() {
                     </div>
                   </div>
 
-                  {/* Industry */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/80 mb-2">
-                      Industry
-                    </label>
-                    <select
-                      value={formData.industry}
-                      onChange={(e) => setFormData(prev => ({ ...prev, industry: e.target.value }))}
-                      className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg px-4 py-2.5 text-white appearance-none focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-                    >
-                      <option value="" disabled>Select industry</option>
-                      {industries.map(industry => (
-                        <option key={industry} value={industry} className="bg-[#0A0F1C]">
-                          {industry}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  
 
-                  {/* Company Size */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/80 mb-2">
-                      Company Size
-                    </label>
-                    <div className="relative">
-                      <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                      <select
-                        value={formData.size}
-                        onChange={(e) => setFormData(prev => ({ ...prev, size: e.target.value }))}
-                        className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white appearance-none focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-                      >
-                        <option value="" disabled>Select company size</option>
-                        {companySizes.map(size => (
-                          <option key={size} value={size} className="bg-[#0A0F1C]">
-                            {size}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                   
 
                   {/* Location */}
                   <div>
@@ -220,56 +150,11 @@ export default function CreateCompany() {
                     </div>
                   </div>
 
-                  {/* Email */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/80 mb-2">
-                      Email
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                        className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-                        placeholder="company@example.com"
-                      />
-                    </div>
-                  </div>
+                   
 
-                  {/* Phone */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/80 mb-2">
-                      Phone
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                        className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-                        placeholder="+1 (555) 000-0000"
-                      />
-                    </div>
-                  </div>
+                   
 
-                  {/* LinkedIn */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/80 mb-2">
-                      LinkedIn
-                    </label>
-                    <div className="relative">
-                      <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-                      <input
-                        type="url"
-                        value={formData.linkedin}
-                        onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
-                        className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white placeholder:text-white/40 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-                        placeholder="LinkedIn profile URL"
-                      />
-                    </div>
-                  </div>
+                
 
                   {/* Description */}
                   <div className="col-span-2">
