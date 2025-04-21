@@ -23,8 +23,7 @@ export default function CreateCompany() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+  
   };
 
   
