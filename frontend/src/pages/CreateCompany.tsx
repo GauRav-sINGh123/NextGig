@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {Building2,MapPin,Globe,Upload,Plus} from 'lucide-react';
+import {Building2,MapPin,Globe,Upload,Plus, LoaderCircle} from 'lucide-react';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 export default function CreateCompany() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ export default function CreateCompany() {
   });
 
   const [previewURL, setPreviewURL] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -21,14 +24,29 @@ export default function CreateCompany() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    try{
+        const res= await axios.post(`${import.meta.env.VITE_BASE_URL}/api/company/create_company`, formData)
+        if(res.status===201){
+          toast.success("Company created successfully!");
+          setFormData({
+            name: '',
+            location: '',
+            website: '',
+            description: '',
+            logo: null,
+          });
+          setPreviewURL('');
+        }
+    }catch{
+      toast.error("Error creating company. Please try again.");
+    }finally{
+      setLoading(false);
+    }
   
   };
-
-  
-
- 
 
   return (
     <div className="auth-gradient min-h-screen relative overflow-hidden">
@@ -109,11 +127,7 @@ export default function CreateCompany() {
                         placeholder="Enter company name"
                       />
                     </div>
-                  </div>
-
-                  
-
-                   
+                  </div>    
 
                   {/* Location */}
                   <div>
@@ -149,12 +163,6 @@ export default function CreateCompany() {
                     </div>
                   </div>
 
-                   
-
-                   
-
-                
-
                   {/* Description */}
                   <div className="col-span-2">
                     <label className="block text-sm font-medium text-white/80 mb-2">
@@ -176,9 +184,10 @@ export default function CreateCompany() {
                     type="submit"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    disabled={loading}
                     className="relative group bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/20"
                   >
-                    Create Company
+                    {loading ? <LoaderCircle className='animate-spin'/> : 'Create Company'}
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-blue-600/20 rounded-lg opacity-0 group-hover:opacity-100 blur transition-opacity" />
                   </motion.button>
                 </div>
