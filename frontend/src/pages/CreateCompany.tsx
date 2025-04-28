@@ -50,21 +50,16 @@ export default function CreateCompany() {
 
   return (
     <div className="auth-gradient min-h-screen relative overflow-hidden">
-      {/* Top radial gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
       
-      {/* Additional glow effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />
         <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px]" />
       </div>
 
-      {/* Dark overlay for better contrast */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/50 via-[#050508]/80 to-[#050508]" />
 
-      {/* Content */}
       <div className="relative">
-        {/* Header */}
 
         <div className="max-w-4xl mx-auto px-4 py-12">
           <motion.div
