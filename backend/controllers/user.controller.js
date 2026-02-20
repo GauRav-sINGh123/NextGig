@@ -88,56 +88,8 @@ export const currentUser = asyncHandler(async (req, res) => {
   res.status(200).json({ user });
 });
 
-export const updateUser = asyncHandler(async (req, res) => {
-  const {
-    fullName,
-    skills,
-    currentCompany,
-    education,
-    collegeEndDate,
-    currentRole,
-  } = req.body;
-
-  const file = req.file;
-  const fileUrl = getURI(file);
-
-  //cloudinary upload
-  const responseUrl = await cloudinary.uploader.upload(fileUrl.content);
-
-  const userId = req.id;
-  let user = await User.findById(userId);
-
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-
-  if (responseUrl.secure_url) {
-    user.profile.resume = responseUrl.secure_url;
-    user.profile.resumeName = file.originalname;
-  }
-  user.fullName = fullName;
-  user.profile.skills = skills;
-  user.profile.currentCompany = currentCompany;
-  user.profile.education = education;
-  user.profile.collegeEndDate = collegeEndDate;
-  user.profile.currentRole = currentRole;
-
-  await user.save();
-
-  const updatedUser = await User.findById(userId).select("-password");
-
-  res.status(200).json(updatedUser);
-});
-
 export const updateUserProfile = asyncHandler(async (req, res) => {
-  const {
-    fullName,
-    skills,
-    currentCompany,
-    education,
-    collegeEndDate,
-    currentRole,
-  } = req.body;
+  const {fullName,skills,currentCompany,education,collegeEndDate,currentRole} = req.body;
 
   const userId = req.id;
   const user = await User.findById(userId);
@@ -146,14 +98,31 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  if (fullName !== undefined) user.fullName = fullName;
-  if (skills !== undefined) user.profile.skills = skills;
-  if (currentCompany !== undefined)
-    user.profile.currentCompany = currentCompany;
-  if (education !== undefined) user.profile.education = education;
-  if (collegeEndDate !== undefined)
+  // ===== Update Only If Value Exists & Not Empty or Undefined =====
+
+  if (fullName !== undefined && fullName.trim() !== "") {
+    user.fullName = fullName.trim();
+  }
+
+  if (skills !== undefined && skills.length !== 0) {
+    user.profile.skills = skills;
+  }
+
+  if (currentCompany !== undefined && currentCompany.trim() !== "") {
+    user.profile.currentCompany = currentCompany.trim();
+  }
+
+  if (education !== undefined && education.trim() !== "") {
+    user.profile.education = education.trim();
+  }
+
+  if (collegeEndDate !== undefined && collegeEndDate !== "") {
     user.profile.collegeEndDate = collegeEndDate;
-  if (currentRole !== undefined) user.profile.currentRole = currentRole;
+  }
+
+  if (currentRole !== undefined && currentRole.trim() !== "") {
+    user.profile.currentRole = currentRole.trim();
+  }
 
   await user.save();
 
@@ -165,6 +134,41 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   });
 });
 
+
+// ===== Separate Endpoints For File Uploads =====
+
+//This method updates the user's profile picture.
+export const updateUserProfilePicture = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "Profile photo is required" });
+  }
+
+  const userId = req.id;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const fileUrl = getURI(req.file);
+
+  const uploadResponse = await cloudinary.uploader.upload(fileUrl.content, {
+    folder: "profile_photos",
+  });
+
+  user.profile.profilePhoto = uploadResponse.secure_url;
+
+  await user.save();
+
+  const updatedUser = await User.findById(userId).select("-password");
+
+  res.status(200).json({
+    message: "Profile picture updated successfully",
+    user: updatedUser,
+  });
+});
+
+// This method updates the user's resume.
 export const updateUserResume = asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "Resume file is required" });
