@@ -129,10 +129,15 @@ export const updateUser = asyncHandler(async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
-export const updateUserProfilePicture = asyncHandler(async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "Profile photo is required" });
-  }
+export const updateUserProfile = asyncHandler(async (req, res) => {
+  const {
+    fullName,
+    skills,
+    currentCompany,
+    education,
+    collegeEndDate,
+    currentRole,
+  } = req.body;
 
   const userId = req.id;
   const user = await User.findById(userId);
@@ -141,24 +146,24 @@ export const updateUserProfilePicture = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  const fileUrl = getURI(req.file);
-
-  const uploadResponse = await cloudinary.uploader.upload(fileUrl.content, {
-    folder: "profile_photos",
-  });
-
-  user.profile.profilePhoto = uploadResponse.secure_url;
+  if (fullName !== undefined) user.fullName = fullName;
+  if (skills !== undefined) user.profile.skills = skills;
+  if (currentCompany !== undefined)
+    user.profile.currentCompany = currentCompany;
+  if (education !== undefined) user.profile.education = education;
+  if (collegeEndDate !== undefined)
+    user.profile.collegeEndDate = collegeEndDate;
+  if (currentRole !== undefined) user.profile.currentRole = currentRole;
 
   await user.save();
 
   const updatedUser = await User.findById(userId).select("-password");
 
   res.status(200).json({
-    message: "Profile picture updated successfully",
+    message: "Profile updated successfully",
     user: updatedUser,
   });
 });
-
 
 export const updateUserResume = asyncHandler(async (req, res) => {
   if (!req.file) {
@@ -174,13 +179,10 @@ export const updateUserResume = asyncHandler(async (req, res) => {
 
   const fileUrl = getURI(req.file);
 
-  const uploadResponse = await cloudinary.uploader.upload(
-    fileUrl.content,
-    {
-      folder: "resumes",
-      resource_type: "auto", 
-    }
-  );
+  const uploadResponse = await cloudinary.uploader.upload(fileUrl.content, {
+    folder: "resumes",
+    resource_type: "auto",
+  });
 
   user.profile.resume = uploadResponse.secure_url;
   user.profile.resumeName = req.file.originalname;
