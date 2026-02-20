@@ -1,38 +1,32 @@
 import User from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import getURI from "../utils/getURI.js";
 import cloudinary from "../utils/cloudinary.js";
 dotenv.config();
 
-export const signup=asyncHandler(async(req,res)=>{
-  const {fullName,email,password,role}=req.body;
-    
-  if(!fullName || !email || !password || !role){
-    return res.status(400).json({message:"All fields are required"})
+export const signup = asyncHandler(async (req, res) => {
+  const { fullName, email, password, role } = req.body;
+
+  if (!fullName || !email || !password || !role) {
+    return res.status(400).json({ message: "All fields are required" });
   }
-    
+
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
     return res.status(400).json({ message: "User already exists" });
   }
-  
-  const user=await User.create({fullName,email,password,role})
 
-  const createdUser = await User.findById(user._id).select(
-    "-password"
-  );
+  const user = await User.create({ fullName, email, password, role });
 
-  if(!createdUser) return res.status(404).json({message:"User not found"})
+  const createdUser = await User.findById(user._id).select("-password");
 
-  res.status(201).json({message:"User created successfully",createdUser})
+  if (!createdUser) return res.status(404).json({ message: "User not found" });
 
-})
- 
-
-
+  res.status(201).json({ message: "User created successfully", createdUser });
+});
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -66,7 +60,7 @@ export const login = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 24 * 60 * 60 * 1000, 
+    maxAge: 24 * 60 * 60 * 1000,
   });
 
   // Excludes password field
@@ -75,57 +69,92 @@ export const login = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Login successful", user: currentUser });
 });
 
-export const logout=asyncHandler(async(req,res)=>{
+export const logout = asyncHandler(async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-});
+  });
 
-res.status(200).json({
+  res.status(200).json({
     success: true,
     message: "User logged out successfully",
+  });
 });
-})
 
-export const currentUser=asyncHandler(async(req,res)=>{
-    const user=await User.findById(req.id).select("-password")
-    if(!user) return res.status(404).json({message:"User not found"})
-    res.status(200).json({user})
-})
+export const currentUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.id).select("-password");
+  if (!user) return res.status(404).json({ message: "User not found" });
+  res.status(200).json({ user });
+});
 
+export const updateUser = asyncHandler(async (req, res) => {
+  const {
+    fullName,
+    skills,
+    currentCompany,
+    education,
+    collegeEndDate,
+    currentRole,
+  } = req.body;
 
-export const updateUser=asyncHandler(async(req,res)=>{
-   const {fullName,skills,currentCompany,education,collegeEndDate,currentRole}=req.body;
-   
-   const file= req.file ;
-   const fileUrl=getURI(file);
+  const file = req.file;
+  const fileUrl = getURI(file);
 
-   //cloudinary upload
-   const responseUrl=await cloudinary.uploader.upload(fileUrl.content)
+  //cloudinary upload
+  const responseUrl = await cloudinary.uploader.upload(fileUrl.content);
 
+  const userId = req.id;
+  let user = await User.findById(userId);
 
-   const userId = req.id;  
-   let user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
 
-   if (!user) {
-     return res.status(404).json({ message: "User not found" });
-   }
- 
-   if(responseUrl.secure_url){
+  if (responseUrl.secure_url) {
     user.profile.resume = responseUrl.secure_url;
     user.profile.resumeName = file.originalname;
-   }
-   user.fullName = fullName;
-   user.profile.skills = skills;
-   user.profile.currentCompany = currentCompany;
-   user.profile.education = education;
-   user.profile.collegeEndDate = collegeEndDate;
-   user.profile.currentRole = currentRole;
- 
-   await user.save();
-    
-   const updatedUser = await User.findById(userId).select("-password");
-   
-   res.status(200).json(updatedUser)
-})
+  }
+  user.fullName = fullName;
+  user.profile.skills = skills;
+  user.profile.currentCompany = currentCompany;
+  user.profile.education = education;
+  user.profile.collegeEndDate = collegeEndDate;
+  user.profile.currentRole = currentRole;
+
+  await user.save();
+
+  const updatedUser = await User.findById(userId).select("-password");
+
+  res.status(200).json(updatedUser);
+});
+
+export const updateUserProfilePicture = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "Profile photo is required" });
+  }
+
+  const userId = req.id;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const fileUrl = getURI(req.file);
+
+  const uploadResponse = await cloudinary.uploader.upload(fileUrl.content, {
+    folder: "profile_photos",
+  });
+
+  user.profile.profilePhoto = uploadResponse.secure_url;
+
+  await user.save();
+
+  const updatedUser = await User.findById(userId).select("-password");
+
+  res.status(200).json({
+    message: "Profile picture updated successfully",
+    user: updatedUser,
+  });
+});
