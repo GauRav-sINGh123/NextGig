@@ -2,6 +2,8 @@ import User from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv";
+import getURI from "../utils/getURI.js";
+import cloudinary from "../utils/cloudinary.js";
 dotenv.config();
 
 export const signup=asyncHandler(async(req,res)=>{
@@ -96,7 +98,13 @@ export const currentUser=asyncHandler(async(req,res)=>{
 export const updateUser=asyncHandler(async(req,res)=>{
    const {fullName,skills,currentCompany,education,collegeEndDate,currentRole}=req.body;
    
-  
+   const file= req.file ;
+   const fileUrl=getURI(file);
+
+   //cloudinary upload
+   const responseUrl=await cloudinary.uploader.upload(fileUrl.content)
+
+
    const userId = req.id;  
    let user = await User.findById(userId);
 
@@ -104,6 +112,10 @@ export const updateUser=asyncHandler(async(req,res)=>{
      return res.status(404).json({ message: "User not found" });
    }
  
+   if(responseUrl.secure_url){
+    user.profile.resume = responseUrl.secure_url;
+    user.profile.resumeName = file.originalname;
+   }
    user.fullName = fullName;
    user.profile.skills = skills;
    user.profile.currentCompany = currentCompany;
