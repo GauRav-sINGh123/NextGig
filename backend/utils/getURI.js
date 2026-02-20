@@ -1,0 +1,11 @@
+import DataURIParser from "datauri/parser";
+
+import path from "path";
+
+const getURI = (file)=>{
+    const parser = new DataURIParser();
+    const ext = path.extname(file.originalname).toString();
+    return parser.format(ext, file.buffer);
+}
+
+export default getURI;
