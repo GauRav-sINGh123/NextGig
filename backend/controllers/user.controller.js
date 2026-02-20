@@ -158,3 +158,39 @@ export const updateUserProfilePicture = asyncHandler(async (req, res) => {
     user: updatedUser,
   });
 });
+
+
+export const updateUserResume = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "Resume file is required" });
+  }
+
+  const userId = req.id;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const fileUrl = getURI(req.file);
+
+  const uploadResponse = await cloudinary.uploader.upload(
+    fileUrl.content,
+    {
+      folder: "resumes",
+      resource_type: "auto", 
+    }
+  );
+
+  user.profile.resume = uploadResponse.secure_url;
+  user.profile.resumeName = req.file.originalname;
+
+  await user.save();
+
+  const updatedUser = await User.findById(userId).select("-password");
+
+  res.status(200).json({
+    message: "Resume uploaded successfully",
+    user: updatedUser,
+  });
+});
