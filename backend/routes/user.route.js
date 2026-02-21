@@ -10,12 +10,12 @@ router.route("/login").post(login)
 
 router.route("/logout").post(logout)
 
-router.route("/update_user").put(isAuthenticated,upload,updateUserProfile)
+router.route("/update_user").put(isAuthenticated,updateUserProfile)
 
 router.route("/current_user").get(isAuthenticated,currentUser)
 
-router.route("/update_user_profile_image").get(isAuthenticated,updateUserProfilePicture)
+router.route("/update_user_profile_image").post(isAuthenticated,upload,updateUserProfilePicture)
 
-router.route("/upload_resume").post(isAuthenticated,updateUserResume)
+router.route("/upload_resume").post(isAuthenticated,upload,updateUserResume)
 
 export default router
