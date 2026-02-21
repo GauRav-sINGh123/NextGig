@@ -1,5 +1,5 @@
 import express from "express"
-import { currentUser, login, logout, signup,updateUserProfile,updateUserProfilePicture } from "../controllers/user.controller.js"
+import { currentUser, login, logout, signup,updateUserProfile,updateUserProfilePicture,updateUserResume } from "../controllers/user.controller.js"
 import isAuthenticated from "../middleware/isAuthenticated.js"
 import {upload} from "../middleware/multer.js"
 const router=express.Router()
@@ -15,5 +15,7 @@ router.route("/update_user").put(isAuthenticated,upload,updateUserProfile)
 router.route("/current_user").get(isAuthenticated,currentUser)
 
 router.route("/update_user_profile_image").get(isAuthenticated,updateUserProfilePicture)
+
+router.route("/upload_resume").post(isAuthenticated,updateUserResume)
 
 export default router
