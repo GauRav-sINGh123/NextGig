@@ -168,10 +168,14 @@ export const updateUserProfilePicture = asyncHandler(async (req, res) => {
   });
 });
 
-// This method updates the user's resume.
 export const updateUserResume = asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "Resume file is required" });
+  }
+
+  // Allow only PDF
+  if (req.file.mimetype !== "application/pdf") {
+    return res.status(400).json({ message: "Only PDF files are allowed" });
   }
 
   const userId = req.id;
@@ -183,11 +187,16 @@ export const updateUserResume = asyncHandler(async (req, res) => {
 
   const fileUrl = getURI(req.file);
 
-  const uploadResponse = await cloudinary.uploader.upload(fileUrl.content, {
-    folder: "resumes",
-    resource_type: "auto",
-  });
+  
+ const uploadResponse = await cloudinary.uploader.upload(
+    fileUrl.content,
+    {
+      folder: "resumes",   
+     
+    }
+  );
 
+   
   user.profile.resume = uploadResponse.secure_url;
   user.profile.resumeName = req.file.originalname;
 
